@@ -5,22 +5,24 @@ import re
 On reçoit une liste d'array
 Chaque array possède la probabilité d'une lettre de l'alphabet (26 cases)
 """
-def wordConstruction(letterProbability):
+def wordConstruction (letterProbability) :
     firstWordTry = dummyWordConstruction(letterProbability)
     if(checkIfDummyWordIsValid(firstWordTry)):
         writtingWordInFiles(firstWordTry)
     else :
         cleverWordConstruction(letterProbability)
 
-def writtingWordInFiles(wordToAdd):
+
+def writtingWordInFiles (wordToAdd) :
     with open("result.txt","a") as resultText :
-        resultText.add(wordToAdd)
+        resultText.write(wordToAdd)
 
     resultText.close()
 
+
 """Méthode Dummy"""
 
-def checkIfDummyWordIsValid (word):
+def checkIfDummyWordIsValid (word) :
     dummyPass = False
     with open ("words_alpha","r") as words_Alpha:
         wordsList = words_Alpha.read()
@@ -36,7 +38,7 @@ def checkIfDummyWordIsValid (word):
 
 #On essaye une méthode qui consiste simplement a prendre la lettre la plus probable pour chaque lettres
 
-def dummyWordConstruction (letterProbability):
+def dummyWordConstruction (letterProbability) :
     dummyWord = ""
     for letterArray in letterProbability :
         max = 0
@@ -51,6 +53,7 @@ def dummyWordConstruction (letterProbability):
 
     return dummyWord
 
+
 """
 Vérification plus poussé
 A partir du dictionnaire l'objectif est de construire pour chaque lettre la probabilité d'être suivi par une autre lettre
@@ -59,7 +62,7 @@ Lors de la reconstruction du mot si la probabilité la plus élèvé est inféri
     On garde alors le meilleursrésultat(par exemple multiplication des proba du réseau et celle obtenu sur le dictionnaire)
 """
 
-def cleverWordConstruction(letterProbability):
+def cleverWordConstruction (letterProbability) :
     filepathDictionnary = "words_alpha.txt"
     #Valeur de seuil. Si proba en sortie du réseau de neuronne supérieur à cette valeur aucune vérification n'est faite
     #Si la proba est inférieur alors on test avec la seconde lettres
@@ -111,7 +114,8 @@ def cleverWordConstruction(letterProbability):
 
     writtingWordInFiles(returnWord)
 
-def constructStatFromDictionnary(filepath):
+
+def constructStatFromDictionnary (filepath) :
     count = np.zeros(26,26)
 
     with open(filepath,"r") as lines:
@@ -119,18 +123,19 @@ def constructStatFromDictionnary(filepath):
             #Pour chaque mot, a partir de la seconde lettre, regarder la lettre qui précède et ajouter dans count a la bonne case +1
             line = line.replace("\n","")
             line2 = list(line)
-            for i in range(1,len(line)):
-                firstLetter = ord(line2[i-1])-96 #-96 car en python ord('a') = 97
-                secondLetter = ord (line2[i])-96
-                #Une fois que les deux lettre sont identifié on incrémente de 1 dans la ligne de la première lettre
-                #colonne de la seconde lettre
+            for i in range(1, len(line)):
+                firstLetter = ord(line2[i-1])
+                secondLetter = ord (line2[i])
+#Une fois que les deux lettre sont identifié on incrémente de 1 dans la ligne de la première lettre
+#colonne de la seconde lettre
 
-                count[firstLetter-1,secondLetter-1]+=1
+                count[firstLetter-97,secondLetter-97]+=1#on retire le 97 pour passer de la valeur Unicode a indice de la matrice
 
-    #Pour être rigoureux il faudrait pour chaque ligne faire la somme des résultat obtenu et diviser chaque case par la valeur
-    #Mais pour l'utilisation que l'on veut faire par la suite ce n'est pas forcément nécessaire
+#Pour être rigoureux il faudrait pour chaque ligne sommer les résultat obtenu et diviser chaque case par la valeur
+#Mais pour l'utilisation que l'on veut faire par la suite ce n'est pas forcément nécessaire
     lines.close()
     return count
+
 
 """
 def addLetterToWord(LetterNumber):
