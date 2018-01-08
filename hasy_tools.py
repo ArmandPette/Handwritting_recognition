@@ -85,7 +85,7 @@ def generate_index(csv_filepath):
 
 
 def is_valid_symbol(symbol):
-    if(int(symbol) in range(31, 80)):
+    if(int(symbol) in range(31, 57)):
         # or
         #     int(symbol) in range(70, 80) or
         #     int(symbol) in range(90, 116)):

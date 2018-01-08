@@ -6,7 +6,7 @@ from keras.optimizers import SGD
 def trainNN(base_params, neural_params):
     print("starting neural training")
 
-    (WIDTH, HEIGHT, X, img_id, reversed_index, latex_index) = base_params
+    (WIDTH, HEIGHT, X, img_id, test, img_id_test, reversed_index, latex_index) = base_params
     (array_layers, dropout, epochs, batch_size) = neural_params
 
     # Create model
@@ -25,11 +25,15 @@ def trainNN(base_params, neural_params):
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     # Train
-    model.fit(X, img_id, epochs=epochs, batch_size=batch_size, verbose=2)
+    model.fit(X, img_id, epochs=int(epochs), batch_size=batch_size, verbose=2)
 
     # evaluation
     scores = model.evaluate(X, img_id)
-    print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+    print("\ntrain : %s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+
+    # evaluation
+    scores = model.evaluate(test, img_id_test)
+    print("\ntest : %s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
 
     # prediction = model.predict(X)
     #
