@@ -135,7 +135,7 @@ def constructStatFromDictionnary (filepath) :
     lineSum = count.sum(axis=1)
     for i in range(0, 25):
         for j in range(0, 25):
-            count[i,j]=count[i,j]/lineSum[i]
+            count[i,j]=count[i,j]/lineSum[i]*100
     return count
 
 
