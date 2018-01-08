@@ -15,7 +15,7 @@ def wordConstruction (letterProbability) :
 
 def writtingWordInFiles (wordToAdd) :
     with open("result.txt","a") as resultText :
-        resultText.write(wordToAdd)
+        resultText.write(wordToAdd+" ")
 
     resultText.close()
 
@@ -24,7 +24,7 @@ def writtingWordInFiles (wordToAdd) :
 
 def checkIfDummyWordIsValid (word) :
     dummyPass = False
-    with open ("words_alpha","r") as words_Alpha:
+    with open ("words_alpha.txt","r") as words_Alpha:
         wordsList = words_Alpha.read()
         lignes = wordsList.split("\n")
         for testWord in lignes:
