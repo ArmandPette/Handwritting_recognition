@@ -126,14 +126,16 @@ def constructStatFromDictionnary (filepath) :
             for i in range(1, len(line)):
                 firstLetter = ord(line2[i-1])
                 secondLetter = ord (line2[i])
-#Une fois que les deux lettre sont identifié on incrémente de 1 dans la ligne de la première lettre
-#colonne de la seconde lettre
+                #Une fois que les deux lettre sont identifié on incrémente de 1 dans la ligne de la première lettre
+                #colonne de la seconde lettre
 
                 count[firstLetter-97,secondLetter-97]+=1#on retire le 97 pour passer de la valeur Unicode a indice de la matrice
 
-#Pour être rigoureux il faudrait pour chaque ligne sommer les résultat obtenu et diviser chaque case par la valeur
-#Mais pour l'utilisation que l'on veut faire par la suite ce n'est pas forcément nécessaire
     lines.close()
+    lineSum = count.sum(axis=1)
+    for i in range(0, 25):
+        for j in range(0, 25):
+            count[i,j]=count[i,j]/lineSum[i]
     return count
 
 
