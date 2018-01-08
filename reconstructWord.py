@@ -46,7 +46,7 @@ def dummyWordConstruction (letterProbability):
                 max = letterArray[i]
                 maxIndex = i
 
-        dummyWord += addLetterToWord(maxIndex)
+        dummyWord += chr(97+maxIndex)#Transforme le caractère unicode en lettre 97 étant celui du a
 
 
     return dummyWord
@@ -80,7 +80,7 @@ def cleverWordConstruction(letterProbability):
                     max = letterArray[i]
                     maxIndex = i
 
-            returnWord += addLetterToWord(maxIndex)
+            returnWord += chr(97+maxIndex)
 
             firstLetter = False
 
@@ -98,16 +98,16 @@ def cleverWordConstruction(letterProbability):
                     maxIndex = i
 
             if max > SAFETY_VALUE :
-                returnWord+= addLetterToWord(maxIndex)
+                returnWord+= chr(97+maxIndex)
             else :
-                lastLetterIndex = ord(returnWord[-1:])-96
-                maxTest = max * count[lastLetterIndex-1,maxIndex]
-                secondMaxTest = secondMax * count[lastLetterIndex-1, secondMaxIndex]
+                lastLetterIndex = ord(returnWord[-1:])#Récupère la valeur unicode de la lettre
+                maxTest = max * count[lastLetterIndex-97,maxIndex]#On soustrait 97 a la valeur de l'unicode afin de pouvoir chercher dans la matrice
+                secondMaxTest = secondMax * count[lastLetterIndex-97, secondMaxIndex]
 
                 if maxTest >= secondMaxTest :
-                    returnWord+=addLetterToWord(maxIndex)
+                    returnWord+=chr(97+maxIndex)
                 else :
-                    returnWord+=addLetterToWord(secondMaxIndex)
+                    returnWord+=chr(97+secondMaxIndex)
 
     writtingWordInFiles(returnWord)
 
@@ -132,6 +132,7 @@ def constructStatFromDictionnary(filepath):
     lines.close()
     return count
 
+"""
 def addLetterToWord(LetterNumber):
     return{
         "a" : 1,
@@ -161,3 +162,4 @@ def addLetterToWord(LetterNumber):
         "y":  25,
         "z":  26,
     }(LetterNumber)
+"""
