@@ -116,7 +116,7 @@ def cleverWordConstruction (letterProbability) :
 
 
 def constructStatFromDictionnary (filepath) :
-    count = np.zeros(26,26)
+    count = np.zeros((26,26))
 
     with open(filepath,"r") as lines:
         for line in lines:
