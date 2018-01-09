@@ -94,7 +94,7 @@ def is_valid_symbol(symbol):
         return False
 
 
-def load_images(csv_filepath, symbol_id2index, one_hot=True, flatten=False):
+def load_images(csv_filepath, symbol_id2index, one_hot=True, flatten=True):
     """
     Load the images into a 4D uint8 numpy array [index, y, x, depth].
 
@@ -126,7 +126,7 @@ def load_images(csv_filepath, symbol_id2index, one_hot=True, flatten=False):
         if symbol_id2index.__contains__(data_item['symbol_id']):
             fname = os.path.join(dataset_path, data_item['path'])
             if flatten:
-                img = scipy.ndimage.imread(fname, flatten=False, mode='L')
+                img = scipy.ndimage.imread(fname, flatten=False, mode='L')/255
                 images[i, :] = img.flatten()
             else:
                 images[i, :, :, 0] = scipy.ndimage.imread(fname,
