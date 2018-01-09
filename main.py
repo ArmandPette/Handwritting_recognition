@@ -5,7 +5,7 @@ import testParams
 from our_database import *
 from reconstructWord import *
 
-train_NN = True
+train_NN = False
 
 def concatenate(tab1, tab2):
     temp = []
@@ -84,12 +84,16 @@ else:
         letters_probabilities = []
 
         for file in files:
-            img = scipy.ndimage.imread(file,
+            a = []
+
+            img = scipy.ndimage.imread(folder_name + '/' + folder + '/' + file,
                                        flatten=False,
                                        mode='L') / 255
             img = img.flatten()
+            a.append(np.array(img))
 
-            letter_probabilities = trainNN.UseNN([img])
+            b = np.array(a)
+            letter_probabilities = trainNN.UseNN(b)
             letters_probabilities.append(letter_probabilities)
 
         wordConstruction(letters_probabilities)
