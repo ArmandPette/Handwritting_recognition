@@ -65,7 +65,7 @@ def train():
 
     #best_params = testParams.testParams(base_params)
 
-    best_params = [[1020, 1020, 1020, 1020], 0, 500, 70]
+    best_params = [[1020, 1020, 1020, 1020], 0.2, 500, 70]
 
     acc = trainNN.trainNN(base_params, best_params, True)
 
